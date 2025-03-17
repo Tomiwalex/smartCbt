@@ -31,7 +31,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { IoMenu } from "react-icons/io5";
 import { RxDownload } from "react-icons/rx";
-
+import { scroller } from "react-scroll";
 
 
 function Navbar() {
@@ -55,6 +55,14 @@ function Navbar() {
         window.removeEventListener("scroll", handleScroll);
       };
     }, []);
+
+    const handleScroll = (to) => {
+        scroller.scrollTo(to, {
+            smooth: true,
+            duration: 300,
+            offset: -80,
+        });
+    };
 
 
   return (
@@ -89,6 +97,20 @@ function Navbar() {
                     px="40px"
                 >
                     {NavbarData.map((item) => ((
+                        <>
+                        {item.isSection ? 
+                                <Text
+                                    fontSize={16}
+                                    fontWeight={600}
+                                    color={item.id === id ? "brand.100" : "brand.600"}
+                                    _hover={{ color: "brand.100" }}
+                                    cursor="pointer"
+                                    onClick={() => handleScroll(item.id)}
+                                >
+                                    {item.display}
+                                </Text>
+                            :
+
                             <NavLink key={item.id} to={item.path}>
                                 <Text
                                     fontSize={16}
@@ -99,16 +121,19 @@ function Navbar() {
                                     {item.display}
                                 </Text>
                             </NavLink>
+                        }
+                        </>
                         )
                     ))}
                 </HStack>
 
-                <Link to="/">
+
                     <Button
                         bgColor="brand.100"
                         color="white"
+                        w="fit-content"
                         py="30px"
-                        px="40px"
+                        px="60px"
                         fontSize={16}
                         fontWeight={900}
                         rounded="full"
@@ -116,6 +141,7 @@ function Navbar() {
                         borderColor="brand.100"
                         textTransform="uppercase"
                         rightIcon={<Icon as={RxDownload} fontSize="20px"/>}
+                        onClick={() => handleScroll("how-to-download")}
                         _hover={{
                             bgColor: "white",
                             color: "brand.100"
@@ -124,7 +150,6 @@ function Navbar() {
                         Download the App
                     </Button>
                 
-                </Link>
 
          </HStack>
 
@@ -195,26 +220,43 @@ function Navbar() {
                             align="start"
                         >
                             {NavbarData.map((item) => ((
-                                <NavLink key={item.id} to={item.path}>
+                                <>
+                                {item.isSection ? 
                                     <Text
                                         fontSize={16}
-                                        fontWeight={500}
+                                        fontWeight={600}
                                         color={item.id === id ? "brand.100" : "brand.600"}
                                         _hover={{ color: "brand.100" }}
-                                        onClick={onClose}
+                                        cursor="pointer"
+                                        onClick={() => handleScroll(item.id)}
                                     >
                                         {item.display}
                                     </Text>
-                                </NavLink>
-                            )
-                        ))}
 
-                    <Link to="/">
+                                    :
+
+                                    <NavLink key={item.id} to={item.path}>
+                                        <Text
+                                            fontSize={16}
+                                            fontWeight={600}
+                                            color={item.id === id ? "brand.100" : "brand.600"}
+                                            _hover={{ color: "brand.100" }}
+                                        >
+                                            {item.display}
+                                        </Text>
+                                    </NavLink>
+                                }
+                                </>
+                                )
+                            ))}
+
+
                         <Button
                             bgColor="brand.100"
                             color="white"
+                            w="full"
                             py="30px"
-                            px="40px"
+                            px="60px"
                             fontSize={16}
                             fontWeight={900}
                             rounded="full"
@@ -222,6 +264,7 @@ function Navbar() {
                             borderColor="brand.100"
                             textTransform="uppercase"
                             rightIcon={<Icon as={RxDownload} fontSize="20px"/>}
+                            onClick={() => handleScroll("how-to-download")}
                             _hover={{
                                 bgColor: "white",
                                 color: "brand.100"
@@ -230,7 +273,7 @@ function Navbar() {
                             Download the App
                         </Button>
                     
-                    </Link>
+                 
 
                         </VStack>
                     </DrawerBody>

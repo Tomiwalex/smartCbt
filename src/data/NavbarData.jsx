@@ -53,12 +53,21 @@ export const NavbarData = [
         id: "how-to-download",
         display: "How to Download",
         path: "/how-to-download",
+        isSection: true,
     },
 
     {
         id: "why-us",
         display: "Why SMART CBT",
         path: "/why-us",
+        isSection: true,
+    },
+
+    {
+        id: "faqs",
+        display: "FAQS",
+        path: "/faqs",
+        isSection: true,
     },
 
 ]
