@@ -81,6 +81,7 @@ function Faqs({ defaultIndices }) {
             </VStack>
 
             <Accordion
+              w="full"
               index={openItems}
               onChange={handleAccordionChange} 
               allowMultiple={false} 
@@ -160,14 +161,17 @@ function Faqs({ defaultIndices }) {
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                      <Text
-                        fontSize={16}
-                        fontWeight={400}
-                        lineHeight="25px"
-                        color="brand.900"
-                      >
-                        {faq.answer}
-                      </Text>
+                    {faq.answer.split("\n").map((line, index) => (
+                        <Text
+                            key={index}
+                            fontSize={16}
+                            fontWeight={400}
+                            lineHeight="25px"
+                            color="brand.900"
+                        >
+                            {line}
+                        </Text>
+                    ))}
                     </AccordionPanel>
                   </AccordionItem>
                 ))}
